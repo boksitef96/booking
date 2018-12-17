@@ -210,6 +210,10 @@
     <Compile Include="Migrations\201812171924077_ExampleAdded.Designer.cs">
       <DependentUpon>201812171924077_ExampleAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812172145124_ExampleEdit.cs" />
+    <Compile Include="Migrations\201812172145124_ExampleEdit.Designer.cs">
+      <DependentUpon>201812172145124_ExampleEdit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Example.cs" />
@@ -302,6 +306,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812171924077_ExampleAdded.resx">
       <DependentUpon>201812171924077_ExampleAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812172145124_ExampleEdit.resx">
+      <DependentUpon>201812172145124_ExampleEdit.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
