@@ -7,13 +7,13 @@ namespace Booking.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class ExampleEdit : IMigrationMetadata
+    public sealed partial class FirstEntities : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(ExampleEdit));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(FirstEntities));
         
         string IMigrationMetadata.Id
         {
-            get { return "201812172145124_ExampleEdit"; }
+            get { return "201812201836019_FirstEntities"; }
         }
         
         string IMigrationMetadata.Source
