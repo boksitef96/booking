@@ -195,9 +195,11 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AccomodationController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\RoomController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -208,6 +210,10 @@
     <Compile Include="Migrations\201812201836019_FirstEntities.cs" />
     <Compile Include="Migrations\201812201836019_FirstEntities.Designer.cs">
       <DependentUpon>201812201836019_FirstEntities.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812202249336_RoomFixed.cs" />
+    <Compile Include="Migrations\201812202249336_RoomFixed.Designer.cs">
+      <DependentUpon>201812202249336_RoomFixed.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Accomodation.cs" />
@@ -279,6 +285,8 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Accomodation\AddNewAccomodation.cshtml" />
+    <Content Include="Views\Room\AddNewRoom.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -302,6 +310,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812201836019_FirstEntities.resx">
       <DependentUpon>201812201836019_FirstEntities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812202249336_RoomFixed.resx">
+      <DependentUpon>201812202249336_RoomFixed.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -19,5 +19,7 @@ namespace Booking.Models
         public bool Terrace { get; set; }
         public bool AC { get; set; }
         public bool Parking { get; set; }
+        public DateTime CreationDate { get; set; }
+        public DateTime LastUpdate { get; set; }
     }
 }
