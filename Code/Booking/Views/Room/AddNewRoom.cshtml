@@ -1,0 +1,60 @@
+﻿
+@{
+    /**/
+
+    ViewBag.Title = "AddNewRoom";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Booking.Models.Room
+
+<h2 style="margin:50px; text-align:center;">Dodajte novu smestajnu jedinicu</h2>
+@using (@Html.BeginForm("AddRoom", "Room"))
+{
+    <div class="form-group">
+        <label>Maksimalan broj osoba</label>
+        @Html.TextBoxFor(m => m.Capacity, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        <label>Cena dnevnog izdavanja (din)</label>
+        @Html.TextBoxFor(m => m.Price, new { @class = "form-control" })
+    </div>
+
+    <div class="checkbox">
+        <label>
+            @Html.CheckBoxFor(m => m.TV) TV
+        </label>
+    </div>
+
+    <div class="checkbox">
+        <label>
+            @Html.CheckBoxFor(m => m.PetFriendly) Pet Friendly
+        </label>
+    </div>
+
+    <div class="checkbox">
+        <label>
+            @Html.CheckBoxFor(m => m.AC) Klima
+        </label>
+    </div>
+
+    <div class="checkbox">
+        <label>
+            @Html.CheckBoxFor(m => m.Terrace) Terasa
+        </label>
+    </div>
+
+    <div class="checkbox">
+        <label>
+            @Html.CheckBoxFor(m => m.Parking) Parking mesto
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label>Dodatni opis smestajne jedinice</label>
+        @Html.TextAreaFor(m => m.Descritpion, new { @class = "form-control" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Dodaj</button>
+}
+

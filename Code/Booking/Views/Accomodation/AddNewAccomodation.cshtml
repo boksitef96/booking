@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "AddNewAccomodation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Booking.Models.Accomodation
+
+<h1 style="margin:50px; text-align:center;">Dodajte novi objekat</h1>
+
+@using (Html.BeginForm("AddAccomodation", "Accomodation"))
+{
+    <div class="form-group">
+        <label>Naziv objekta</label>
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        <label>Grad</label>
+        @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        <label>Drzava</label>
+        @Html.TextBoxFor(m => m.Country, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        <label>Adresa</label>
+        @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+
+        <div style="font-weight:bold;margin-bottom:7px;">Broj zvezdica</div>
+
+        <label class="radio-inline">
+            @Html.RadioButtonFor(m => m.Stars, "1", new { @name = "optradio" }) 1
+        </label>
+        <label class="radio-inline">
+            @Html.RadioButtonFor(m => m.Stars, "2", new { @name = "optradio" }) 2
+        </label>
+        <label class="radio-inline">
+            @Html.RadioButtonFor(m => m.Stars, "3", new { @name = "optradio" }) 3
+        </label>
+        <label class="radio-inline">
+            @Html.RadioButtonFor(m => m.Stars, "4", new { @name = "optradio" }) 4
+        </label> 
+        <label class="radio-inline">
+            @Html.RadioButtonFor(m => m.Stars, "5", new { @name = "optradio" }) 5
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label>Dodatni opis</label>
+        @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Sacuvaj</button>
+}
+
