@@ -61,5 +61,29 @@ namespace Booking.Controllers
             var accomodations = _context.Accomodations.ToList();
             return View(accomodations);
         }
+
+        [HttpGet]
+        [Authorize]
+        [Route("show-user-accomoations", Name = "show_user_accomodations")]
+        public ActionResult ShowAllAccomodationsByUser()
+        {
+            var currentUserName = System.Web.HttpContext.Current.User.Identity.Name;
+            var user = _context.Users.Where(x => x.Email == currentUserName).FirstOrDefault();
+           
+            var accomodations = _context.Accomodations.Where(a => a.User.Id == user.Id).ToList();
+            return View(accomodations);
+        }
+
+        [Authorize]
+        public ActionResult DeleteAccomodation(int id)
+        {
+            var accomodation = _context.Accomodations.Where(a => a.Id == id).FirstOrDefault();
+
+            _context.Accomodations.Remove(accomodation);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Home");
+        }
+
     }
 }

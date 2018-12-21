@@ -291,6 +291,7 @@
     <Content Include="Views\Room\AddNewRoom.cshtml" />
     <Content Include="Views\Reservation\AddNewReservation.cshtml" />
     <Content Include="Views\Accomodation\ShowAllAccomodations.cshtml" />
+    <Content Include="Views\Accomodation\ShowAllAccomodationsByUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

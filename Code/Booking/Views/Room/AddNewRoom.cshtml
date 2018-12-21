@@ -6,7 +6,7 @@
 @model Booking.Models.Room
 
 <h2 style="margin:50px; text-align:center;">Dodajte novu smestajnu jedinicu</h2>
-@using (@Html.BeginForm("AddRoom", "Room"))
+@using (@Html.BeginForm("AddRoom", "Room", new { accomodationId = Model.Accomodation.Id }, FormMethod.Post, null))
 {
     <div class="form-group">
         <label>Maksimalan broj osoba</label>

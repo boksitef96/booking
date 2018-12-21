@@ -27,17 +27,31 @@ namespace Booking.Controllers
             return View();
         }
 
-        [Route("add-new-room")]
-        public ActionResult AddNewRoom()
+        [Authorize]
+        [Route("add-new-room/{accomodationId}", Name ="add_new_room")]
+        public ActionResult AddNewRoom(int accomodationId)
         {
-            return View();
+            var room = new Room();
+            var accomodation = _context.Accomodations.Where(a => a.Id == accomodationId).FirstOrDefault();
+            room.Accomodation = accomodation;
+            return View(room);
         }
 
         [HttpPost]
-        public ActionResult AddRoom(Room room)
+        [Authorize]
+        public ActionResult AddRoom(Room room, int accomodationId)
         {
+            var currentUserName = System.Web.HttpContext.Current.User.Identity.Name;
+            var user = _context.Users.Where(x => x.Email == currentUserName).FirstOrDefault();
+            var accomodation = _context.Accomodations.Where(a => a.Id == accomodationId).FirstOrDefault();
+
+            room.User = user;
             room.CreationDate = DateTime.Now;
             room.LastUpdate = DateTime.Now;
+            room.Accomodation = accomodation;
+
+            accomodation.AvailableRooms++;
+            //accomodation.Rooms.Add(room);
 
             _context.Rooms.Add(room);
             _context.SaveChanges();
