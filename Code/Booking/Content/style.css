@@ -1,0 +1,10 @@
+﻿.allAccomodations {
+  
+    padding:10px;
+}
+.accomodation {
+    padding: 10px;
+    border: solid grey 1px;
+    overflow: auto;
+    margin: 10px;
+}
