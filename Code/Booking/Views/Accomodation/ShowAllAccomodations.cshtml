@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "ShowAllAccomodations";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model IEnumerable<Booking.Models.Accomodation>
+
+<h2 style="text-align: center">Svi postojeci smestaji</h2>
+
+<div class="allAccomodations row">
+    @{
+        foreach (var accomodation in Model)
+        {
+            <div class="accomodation col-lg-3">
+                <h4> @accomodation.Name, @accomodation.City </h4>
+                <h5> @accomodation.Country</h5>
+                <hr />
+                <div>
+                    <b>Adresa: </b>@accomodation.Address
+                </div>
+                <div>
+                    <b>Broj slobodnih soba: </b>@accomodation.AvailableRooms
+                </div>
+                <div>
+                    <b>Zvezdice: </b>@accomodation.Stars
+                </div>
+                <div>
+                    <b>Ocena: </b>@accomodation.Rating
+                </div>
+                <div>
+                    <b>Dodatni opis: </b>@accomodation.Description
+                </div>
+            </div>
+            
+        }
+    }
+</div>
+

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Booking.Models;
+using Booking.Controllers;
+
 
 namespace Booking.Controllers
 {
@@ -27,7 +29,8 @@ namespace Booking.Controllers
             return View();
         }
         
-        [Route("add-new-accomodation")]
+        [Authorize]
+        [Route("add-new-accomodation", Name = "add_new_accomodation")]
         public ActionResult AddNewAccomodation()
         {
             return View();
@@ -36,6 +39,9 @@ namespace Booking.Controllers
         [HttpPost]
         public ActionResult AddAccomodation(Accomodation accomodation)
         {
+            var currentUserName = System.Web.HttpContext.Current.User.Identity.Name;
+            var user = _context.Users.Where(x => x.Email == currentUserName).FirstOrDefault();
+            accomodation.User = user;
             accomodation.AvailableRooms = 0;
             accomodation.CreationDate = DateTime.Now;
             accomodation.LastUpdate = DateTime.Now;
@@ -43,7 +49,17 @@ namespace Booking.Controllers
             _context.Accomodations.Add(accomodation);
             _context.SaveChanges();
 
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
+        }
+
+
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("show-all-accomoations", Name ="show_all_accomodations")]
+        public ActionResult ShowAllAccomodations()
+        {
+            var accomodations = _context.Accomodations.ToList();
+            return View(accomodations);
         }
     }
 }
