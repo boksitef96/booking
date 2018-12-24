@@ -46,6 +46,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="csredis, Version=3.2.1.0, Culture=neutral, PublicKeyToken=1afd0264bbe4a44a, processorArchitecture=MSIL">
+      <HintPath>..\packages\csredis.3.2.1\lib\net40\csredis.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
