@@ -7,11 +7,11 @@
 
 <h2 style="text-align: center">Svi postojeci smestaji</h2>
 
-<div class="allAccomodations row">
+<div class="cardsWrapper row">
     @{
         foreach (var accomodation in Model)
         {
-            <div class="accomodation col-lg-3">
+            <div class="card col-lg-3">
                 <h4> @accomodation.Name, @accomodation.City </h4>
                 <h5> @accomodation.Country</h5>
                 <hr />

@@ -1,0 +1,114 @@
+﻿
+@{
+    ViewBag.Title = "ShowRooms";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model List<Booking.Models.Room>
+
+<h2 style="text-align: center">Smestajne jedinice</h2>
+
+<div class="cardsWrapper row">
+    @{
+        foreach (var room in Model)
+        {
+            <div class="card col-lg-3">
+
+                <h4> 1/@room.Capacity soba - @room.Accomodation.Name, @room.Accomodation.City </h4>
+                <h5> @room.Accomodation.City, @room.Accomodation.Country</h5>
+                <hr />
+                <div>
+                    <b>Adresa: </b>@room.Accomodation.Address
+                </div>
+                <div>
+                    <b>Cena (din): </b>@room.Price
+                </div>
+                <div>
+                    <b>Ocena: </b>@room.Accomodation.Rating
+                </div>
+                <div class="row">
+                    <div class="col-lg-7"><b>Wifi</b></div>
+                    @{
+                        if (room.Wifi)
+                        {
+                            <div class="col-lg-4"> <i class="fa fa-check"></i></div>
+                        }
+                        else
+                        {
+                            <div class="col-lg-4"> <i class="fa fa-times"></i></div>
+                        }
+                    }
+                </div>
+                <div class="row">
+                    <div class="col-lg-7"><b>Parking</b></div>
+                    @{
+                        if (room.Parking)
+                        {
+                            <div class="col-lg-4"> <i class="fa fa-check"></i></div>
+                        }
+                        else
+                        {
+                            <div class="col-lg-4"> <i class="fa fa-times"></i></div>
+                        }
+                    }
+                </div>
+                <div class="row">
+                    <div class="col-lg-7"><b>TV</b></div>
+                    @{
+                        if (room.TV)
+                        {
+                            <div class="col-lg-4"> <i class="fa fa-check"></i></div>
+                        }
+                        else
+                        {
+                            <div class="col-lg-4"> <i class="fa fa-times"></i></div>
+                        }
+                    }
+                </div>
+                <div class="row">
+                    <div class="col-lg-7"><b>Dozvoljene zivotinje</b></div>
+                    @{
+                        if (room.PetFriendly)
+                        {
+                            <div class="col-lg-4"> <i class="fa fa-check"></i></div>
+                        }
+                        else
+                        {
+                            <div class="col-lg-4"> <i class="fa fa-times"></i></div>
+                        }
+                    }
+                </div>
+                <div class="row">
+                    <div class="col-lg-7"><b>Terasa</b></div>
+                    @{
+                        if (room.Terrace)
+                        {
+                            <div class="col-lg-4"> <i class="fa fa-check"></i></div>
+                        }
+                        else
+                        {
+                            <div class="col-lg-4"> <i class="fa fa-times"></i></div>
+                        }
+                    }
+                </div>
+                <div class="row">
+                    <div class="col-lg-7"><b>Klima</b></div>
+                    @{
+                        if (room.AC)
+                        {
+                            <div class="col-lg-4"> <i class="fa fa-check"></i></div>
+                        }
+                        else
+                        {
+                            <div class="col-lg-4"> <i class="fa fa-times"></i></div>
+                        }
+                    }
+                </div>
+                <div>
+                    <b>Dodatni opis: </b>@room.Descritpion
+                </div>
+                @*<a class="btn btn-block btn-success" style="margin-top:10px;" href='@Url.RouteUrl("add_new_room", new { accomodationId = accomodation.Id })'>Izmeni smestajnu jedinicu</a>*@
+                @*@Html.ActionLink("Obrisi ovaj smestajni objekat", "DeleteAccomodation", "Accomodation", new { id = accomodation.Id }, new { @class = "btn btn-block btn-danger" })*@
+            </div>
+        }
+    }
+</div>

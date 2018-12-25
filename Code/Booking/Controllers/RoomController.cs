@@ -58,5 +58,16 @@ namespace Booking.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        [HttpGet]
+        [Route("show-rooms/{accomodationId}/{type}", Name = "show_rooms")]
+        public ActionResult ShowAllRoomsForAccomodation(int accomodationId, bool type)
+        {
+            var accomodation = _context.Accomodations.Where(a => a.Id == accomodationId).FirstOrDefault();
+            var rooms = new List<Room>();
+            rooms = _context.Rooms.Where(r => r.Accomodation.Id == accomodation.Id).ToList();
+
+            return View("ShowAllRoomsForAccomodation", rooms);
+        }
     }
 }
