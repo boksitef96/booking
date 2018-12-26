@@ -3,6 +3,7 @@
     ViewBag.Title = "ShowAllAccomodationsByUser";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@model IEnumerable<Booking.Models.Accomodation>
 
 <h2 style="text-align: center">Svi postojeci smestaji</h2>
 
@@ -12,7 +13,7 @@
         {
             <div class="card col-lg-3">
                 <h4 style="display:inline-block; width: 53%;"> @accomodation.Name, @accomodation.City </h4>
-                <a style="display:inline-block; width: 45%;" class="btn btn-default"  href='@Url.RouteUrl("show_rooms", new { accomodationId = accomodation.Id, type = true })'>Pregledaj sobe <br/><i class="fas fa-bed"></i></a>
+                <a style="display:inline-block; width: 45%;" class="btn btn-default" href='@Url.RouteUrl("show_rooms", new { accomodationId = accomodation.Id, type = true })'>Pregledaj sobe <br /><i class="fas fa-bed"></i></a>
                 <h5> @accomodation.Country</h5>
                 <hr />
                 <div>
@@ -31,7 +32,7 @@
                     <b>Dodatni opis: </b>@accomodation.Description
                 </div>
                 <a class="btn btn-block btn-success" style="margin-top:10px;" href='@Url.RouteUrl("add_new_room", new { accomodationId = accomodation.Id })'>Dodaj novu smestajnu jedinicu</a>
-                @Html.ActionLink("Obrisi ovaj smestajni objekat", "DeleteAccomodation", "Accomodation", new { id = accomodation.Id }, new { @class = "btn btn-block btn-danger"})
+                @Html.ActionLink("Obrisi ovaj smestajni objekat", "DeleteAccomodation", "Accomodation", new { id = accomodation.Id }, new { @class = "btn btn-block btn-danger" })
             </div>
 
         }

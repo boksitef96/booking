@@ -41,6 +41,7 @@ namespace Booking.Controllers
         {
             var currentUserName = System.Web.HttpContext.Current.User.Identity.Name;
             var user = _context.Users.Where(x => x.Email == currentUserName).FirstOrDefault();
+          
             accomodation.User = user;
             accomodation.AvailableRooms = 0;
             accomodation.CreationDate = DateTime.Now;
@@ -51,7 +52,6 @@ namespace Booking.Controllers
 
             return RedirectToAction("Index", "Home");
         }
-
 
         [HttpGet]
         [AllowAnonymous]
