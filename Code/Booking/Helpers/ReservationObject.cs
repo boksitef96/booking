@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Booking.Helpers
 {
-    public class ReservationsList
+    public class ReservationObject
     {
         public int RoomId { get; set; }
         public int ReservationId { get; set; }

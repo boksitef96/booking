@@ -1,4 +1,5 @@
-﻿using Booking.Models;
+﻿using Booking.ControlerViewModels;
+using Booking.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,8 +40,13 @@ namespace Booking.Controllers
             reservation.DateStart = DateTime.Now;
             reservation.DateEnd = DateTime.Now;
 
-            //List<DateTime> dates = redisDB.GetReservationsDatesForRoom(roomId);
-            return View(reservation);
+            ReservationDates reservationDates = new ReservationDates
+            {
+                Reservation = reservation,
+                Dates = redisDB.GetReservationsDatesForRoom(roomId)
+            };
+            
+            return View(reservationDates);
         }  
 
         [HttpPost]

@@ -98,8 +98,8 @@ namespace Booking.Controllers
             var response = redis.Get(key);
             if (response != null)
             {
-                var reservations = jsonS.Deserialize<List<ReservationsList>>(response);
-                ReservationsList newReservation =  new ReservationsList
+                var reservations = jsonS.Deserialize<List<ReservationObject>>(response);
+                ReservationObject newReservation =  new ReservationObject
                 {
                     RoomId = reservation.Room.Id,
                     ReservationId = reservation.Id,
@@ -113,7 +113,7 @@ namespace Booking.Controllers
             else
             {
                 var reservations = new List<Object>();
-                ReservationsList newReservation = new ReservationsList
+                ReservationObject newReservation = new ReservationObject
                 {
                     RoomId = reservation.Room.Id,
                     ReservationId = reservation.Id,
@@ -125,25 +125,30 @@ namespace Booking.Controllers
             }
         }
 
-        public List<DateTime> GetReservationsDatesForRoom(int roomId)
+        public string GetReservationsDatesForRoom(int roomId)
         {
-            List<DateTime> dates = new List<DateTime>();
+            //List<DateTime> dates = new List<DateTime>();
+            string dates = "";
             var reservationsJson = redis.Get("room:" + roomId + ":reservations");
-            var reservations = jsonS.Deserialize<List<Object>>(reservationsJson);
-            foreach (var reservation in reservations)
-            {
-                //var properties = reservationObj;
-                //DateTime startDate = reservation.DateStart;
-                //DateTime endDate = reservation.DateEnd;
-                //DateTime currentDate = startDate;
-                //while (currentDate <= endDate)
-                //{
-                //    dates.Add(currentDate);
+            if (reservationsJson != null) { 
+                var reservations = jsonS.Deserialize<List<ReservationObject>>(reservationsJson);
+                foreach (ReservationObject reservation in reservations)
+                {
+                    //var properties = reservationobj;
+                    DateTime startdate = reservation.DateStart;
+                    DateTime enddate = reservation.DateEnd;
+                    DateTime currentdate = startdate;
+                    while (currentdate <= enddate)
+                    {
+                        //dates.Add(currentdate);
+                        //dates.Add(currentdate.Date.ToString("yyyy-MM-dd"));
+                        dates += currentdate.Date.ToString("dd/MM/yyyy")+",";
 
-                //    currentDate = currentDate.AddDays(1);
-                //}
-
-            }
+                        currentdate = currentdate.AddDays(1);
+                    }
+                
+                }
+            } 
             return dates;
         }
     }
