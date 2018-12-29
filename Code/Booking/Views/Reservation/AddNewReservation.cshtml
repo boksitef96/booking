@@ -7,7 +7,7 @@
 @model Booking.Models.Reservation
 
 <h2 style="margin:50px; text-align:center;">Dodajte novu rezervaciju za odabranu smestajnu jedinicu</h2>
-@using (@Html.BeginForm("AddReservation", "Reservation"))
+@using (@Html.BeginForm("AddReservation", "Reservation",  new { roomId = Model.Room.Id }, FormMethod.Post, null))
 {
     <div class="row">
         <div class="form-group col-lg-5">
@@ -16,7 +16,7 @@
         </div>
 
         <div class="form-group col-lg-3">
-            <label>Pocetni datum</label>
+            <label>Krajnji datum</label>
             @Html.TextBoxFor(m => m.DateEnd, new { @class = "form-control", @id = "dateEnd" })
         </div>
     </div>
@@ -31,7 +31,16 @@
 }
 
 <script>
-    $("#dateStart").datepicker();
-    $("#dateEnd").datepicker();
+
+    $('#dateStart').datepicker({
+        format: 'yyyy-mm-dd',
+        autoclose: true,
+        defaultDate: "now",
+    });
+    $('#dateEnd').datepicker({
+        format: 'yyyy-mm-dd',
+        autoclose: true,
+        defaultDate: "now"
+    });
 
 </script>
