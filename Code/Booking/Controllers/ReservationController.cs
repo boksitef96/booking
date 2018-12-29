@@ -10,10 +10,12 @@ namespace Booking.Controllers
     public class ReservationController : Controller
     {
         private ApplicationDbContext _context;
+        private RedisController redisDB;
 
         public ReservationController()
         {
             _context = new ApplicationDbContext();
+            redisDB = new RedisController();
         }
 
         protected override void Dispose(bool disposing)
@@ -34,21 +36,30 @@ namespace Booking.Controllers
 
             var room = _context.Rooms.Where(r => r.Id == roomId).FirstOrDefault();
             reservation.Room = room;
+            reservation.DateStart = DateTime.Now;
+            reservation.DateEnd = DateTime.Now;
+
+            //List<DateTime> dates = redisDB.GetReservationsDatesForRoom(roomId);
             return View(reservation);
         }  
 
         [HttpPost]
-        public ActionResult AddReservation(Reservation reservation)
+        public ActionResult AddReservation(Reservation reservation, int roomId)
         {
             var currentUserName = System.Web.HttpContext.Current.User.Identity.Name;
             var user = _context.Users.Where(x => x.Email == currentUserName).FirstOrDefault();
 
+            var room = _context.Rooms.Where(r => r.Id == roomId).FirstOrDefault();
+
+            reservation.Room = room;
             reservation.User = user;
             reservation.CreationDate = DateTime.Now;
             reservation.LastUpdate = DateTime.Now;
 
             _context.Reservations.Add(reservation);
             _context.SaveChanges();
+
+            redisDB.AddReservation(reservation);
 
             return RedirectToAction("Index", "Home");
         }

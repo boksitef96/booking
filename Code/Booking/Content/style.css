@@ -1,6 +1,8 @@
-﻿.cardsWrapper {
-    padding:10px;
+﻿
+.cardsWrapper {
+    padding: 10px;
 }
+
 .card {
     padding: 10px;
     border: solid grey 1px;
@@ -8,6 +10,15 @@
     margin: 10px;
     background-color: lavender;
 }
+
 .background-color {
     background-color: #FFFFCC;
+}
+
+.sidebar {
+    background-color: silver;
+    border: 1px solid black;
+    margin-top: 20px;
+    height: 500px;
+    text-align: center;
 }
