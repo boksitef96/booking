@@ -9,16 +9,19 @@ using CSRedis;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using System.Web.Script.Serialization;
+using Booking.Helpers;
 
 namespace Booking.Controllers
 {
     public class AccomodationController : Controller
     {
         private ApplicationDbContext _context;
+        public RedisController redisDB;
 
         public AccomodationController()
         {
             _context = new ApplicationDbContext();
+            redisDB = new RedisController();
         }
 
         protected override void Dispose(bool disposing)
@@ -42,9 +45,6 @@ namespace Booking.Controllers
         [HttpPost]
         public ActionResult AddAccomodation(Accomodation accomodation)
         {
-            var jsonS = new JavaScriptSerializer();
-            var redis = new RedisClient("localhost",6379);
-            var aa = redis.Set("23", "aaaaaaa");
             var currentUserName = System.Web.HttpContext.Current.User.Identity.Name;
             var user = _context.Users.Where(x => x.Email == currentUserName).FirstOrDefault();
           
@@ -54,7 +54,11 @@ namespace Booking.Controllers
             accomodation.LastUpdate = DateTime.Now;
             accomodation.Rating = 0;
             _context.Accomodations.Add(accomodation);
-            redis.Set(accomodation.Id.ToString(), jsonS.Serialize(accomodation));
+            if (accomodation.Stars>3)
+            {
+                redisDB.AddAccomodationToList("accomodationByStars", accomodation);
+            }
+            redisDB.AddAccomodationToList("accomodationNewest", accomodation);
             _context.SaveChanges();
 
             return RedirectToAction("Index", "Home");
@@ -62,10 +66,19 @@ namespace Booking.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        [Route("show-all-accomoations", Name ="show_all_accomodations")]
-        public ActionResult ShowAllAccomodations()
+        [Route("show-all-accomoations/{type}", Name ="show_all_accomodations")]
+        public ActionResult ShowAllAccomodations(string type)
         {
-            var accomodations = _context.Accomodations.ToList();
+            //var accomodations = _context.Accomodations.ToList();
+            List<Accomodation> accomodations=null;
+            if (type=="newest")
+            {
+                accomodations = redisDB.GetNewest();
+            }
+            if (type == "stars")
+            {
+                accomodations = redisDB.GetAboveAvergeStars();
+            }
             return View(accomodations);
         }
 

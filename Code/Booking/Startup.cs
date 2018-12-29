@@ -1,4 +1,5 @@
-﻿using Microsoft.Owin;
+﻿using Booking.Controllers;
+using Microsoft.Owin;
 using Owin;
 
 [assembly: OwinStartupAttribute(typeof(Booking.Startup))]
@@ -9,6 +10,8 @@ namespace Booking
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
+            RedisController r = new RedisController();
+            r.InitializeRedis();
         }
     }
 }

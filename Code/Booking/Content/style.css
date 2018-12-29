@@ -1,13 +1,17 @@
-﻿.cardsWrapper {
+﻿.allAccomodations {
+  
     padding:10px;
 }
-.card {
+.accomodation {
     padding: 10px;
     border: solid grey 1px;
-    /*overflow: auto;*/
+    overflow: auto;
     margin: 10px;
-    background-color: lavender;
 }
-.background-color {
-    background-color: #FFFFCC;
+.sidebar{
+    background-color: silver;
+    border:1px solid black;
+    margin-top:20px;
+    height:500px;
+    text-align: center;
 }

@@ -14,28 +14,27 @@
 
 </head>
 <body>
-    <div class="background-color">
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    @Html.ActionLink("Booking", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                    <a class="navbar-brand" href='@Url.RouteUrl("show_all_accomodations")'>Prikazi sve smestajne objekte</a>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav"></ul>
-                    @Html.Partial("_LoginPartial")
-                </div>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Booking", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <a class="navbar-brand" href='@Url.RouteUrl("show_all_accomodations", new { type="stars" })'>Prikazi sve smestajne objekte</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav"></ul>
+                @Html.Partial("_LoginPartial")
             </div>
         </div>
-        <div class="container body-content">
-            <div style="min-height: 500px">
-                @RenderBody()
-            </div>
+    </div>
+    <div class="container body-content">
+        <div style="min-height: 500px">
+            @RenderBody()
+        </div>
 
             <hr />
             <footer>
