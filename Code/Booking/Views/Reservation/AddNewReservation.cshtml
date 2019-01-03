@@ -33,16 +33,59 @@
 
 <script>
 
-    $('#dateStart').datepicker({
-        format: 'yyyy-mm-dd',
-        autoclose: true,
-        defaultDate: "now",
+    var datesString = $("#dates").val();
+    var dates = datesString.split(",");
+    dates = dates.filter(d => d != "");
+
+    $("#dateStart").datepicker({
+        dateFormat: 'mm-dd-yy',
+        minDate: new Date(),
+        beforeShowDay: function (date) {
+            var dateString = (date.getMonth() + 1);
+            if (date.getMonth() < 9) {
+                dateString = "0" + dateString;
+            }
+            dateString += "-";
+
+            if (date.getDate() < 10)
+            {
+                dateString += "0";
+            }
+
+            dateString += date.getDate() + "-" + date.getFullYear();
+
+            if (!($.inArray(dateString, dates) != -1)) {
+                return [true, "", "Available"];
+            } else {
+                return [false, "", "Unvailable"];
+            }
+        }
     });
-    $('#dateEnd').datepicker({
-        format: 'yyyy-mm-dd',
-        autoclose: true,
-        defaultDate: "now"
+    $("#dateStart").datepicker().datepicker("setDate", new Date());
+
+    $("#dateEnd").datepicker({
+        dateFormat: 'mm-dd-yy',
+        minDate: new Date(),
+        beforeShowDay: function (date) {
+            var dateString = (date.getMonth() + 1);
+            if (date.getMonth() < 9) {
+                dateString = "0" + dateString;
+            }
+            dateString += "-";
+
+            if (date.getDate() < 10) {
+                dateString += "0";
+            }
+
+            dateString += date.getDate() + "-" + date.getFullYear();
+
+            if (!($.inArray(dateString, dates) != -1)) {
+                return [true, "", "Available"];
+            } else {
+                return [false, "", "Unavailable"];
+            }
+        }
     });
-    
+    $("#dateEnd").datepicker().datepicker("setDate", new Date());
 
 </script>

@@ -134,16 +134,12 @@ namespace Booking.Controllers
                 var reservations = jsonS.Deserialize<List<ReservationObject>>(reservationsJson);
                 foreach (ReservationObject reservation in reservations)
                 {
-                    //var properties = reservationobj;
                     DateTime startdate = reservation.DateStart;
                     DateTime enddate = reservation.DateEnd;
                     DateTime currentdate = startdate;
                     while (currentdate <= enddate)
                     {
-                        //dates.Add(currentdate);
-                        //dates.Add(currentdate.Date.ToString("yyyy-MM-dd"));
-                        dates += currentdate.Date.ToString("dd/MM/yyyy")+",";
-
+                        dates += currentdate.AddDays(1).Date.ToString("MM-dd-yyyy") + ",";
                         currentdate = currentdate.AddDays(1);
                     }
                 

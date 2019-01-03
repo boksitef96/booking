@@ -37,8 +37,8 @@ namespace Booking.Controllers
 
             var room = _context.Rooms.Where(r => r.Id == roomId).FirstOrDefault();
             reservation.Room = room;
-            reservation.DateStart = DateTime.Now;
-            reservation.DateEnd = DateTime.Now;
+            //reservation.DateStart = DateTime.Now;
+            //reservation.DateEnd = DateTime.Now;
 
             ReservationDates reservationDates = new ReservationDates
             {
@@ -59,6 +59,7 @@ namespace Booking.Controllers
 
             reservation.Room = room;
             reservation.User = user;
+            
             reservation.CreationDate = DateTime.Now;
             reservation.LastUpdate = DateTime.Now;
 
