@@ -3,31 +3,32 @@
 
                 ViewBag.Title = "AddNewRoom";
                 Layout = "~/Views/Shared/_Layout.cshtml";
+              
 }
-@model Booking.Models.Reservation
+@model Booking.ControlerViewModels.ReservationDates
 
 <h2 style="margin:50px; text-align:center;">Dodajte novu rezervaciju za odabranu smestajnu jedinicu</h2>
-@using (@Html.BeginForm("AddReservation", "Reservation",  new { roomId = Model.Room.Id }, FormMethod.Post, null))
+@using (@Html.BeginForm("AddReservation", "Reservation",  new { roomId = Model.Reservation.Room.Id }, FormMethod.Post, null))
 {
     <div class="row">
         <div class="form-group col-lg-5">
             <label>Pocetni datum</label>
-            @Html.TextBoxFor(m => m.DateStart, new { @class = "form-control", @id = "dateStart" })
+            @Html.TextBoxFor(m => m.Reservation.DateStart, new { @class = "form-control", @id = "dateStart" })
         </div>
 
         <div class="form-group col-lg-3">
             <label>Krajnji datum</label>
-            @Html.TextBoxFor(m => m.DateEnd, new { @class = "form-control", @id = "dateEnd" })
+            @Html.TextBoxFor(m => m.Reservation.DateEnd, new { @class = "form-control", @id = "dateEnd" })
         </div>
     </div>
     
     <div class="form-group" style="margin-top:30px">
         <label>Dodatne napomene vezane za rezervaciju</label>
-        @Html.TextAreaFor(m => m.Comment, new { @class = "form-control" })
+        @Html.TextAreaFor(m => m.Reservation.Comment, new { @class = "form-control" })
     </div>
 
-
     <button type="submit" class="btn btn-primary">Dodaj</button>
+    <input type="hidden" id="dates" value=@Model.Dates />
 }
 
 <script>
@@ -42,5 +43,6 @@
         autoclose: true,
         defaultDate: "now"
     });
+    
 
 </script>
