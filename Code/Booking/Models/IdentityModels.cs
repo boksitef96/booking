@@ -24,6 +24,53 @@ namespace Booking.Models
         public DbSet<Accomodation> Accomodations { get; set; }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
+        public DbSet<City> Cities { get; set; }
+
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<Accomodation>().HasKey(x => x.Id)
+        //                                 .HasMany(x => x.Rooms)
+        //                                 .WithRequired(r=>r.Accomodation)
+        //                                 .WillCascadeOnDelete();
+
+        //    modelBuilder.Entity<Reservation>().HasKey(x => x.Id)
+        //                                .HasRequired(r=>r.Room)
+        //                                .WithMany()
+        //                                 //.HasForeignKey(x => x.Room)
+        //                                .WillCascadeOnDelete();
+
+        //    modelBuilder.Entity<Room>().HasKey(x => x.Id);
+
+        //    //modelBuilder.Entity<IdentityUserRole>()
+        //    //                           .HasRequired(r => r.UserId)
+        //    //                            .WithMany()
+        //    //                             //  .HasForeignKey(x => x.UserId)
+        //    //                            .WillCascadeOnDelete();
+
+        //    //modelBuilder.Entity<IdentityUserRole>()
+        //    //                                .HasRequired(r => r.RoleId)
+        //    //                                 .WithMany()
+        //    //                               //     .HasForeignKey(x => x.RoleId)
+        //    //                                 .WillCascadeOnDelete();
+
+        //    //modelBuilder.Entity<IdentityUserLogin>()
+        //    //                               .HasRequired(r => r.UserId)
+        //    //                                .WithMany()
+        //    //                               // .HasForeignKey(x=>x.UserId)
+        //    //                                .WillCascadeOnDelete();
+
+        //    //modelBuilder.Entity<IdentityUserClaim>().HasKey(x=>x.Id)
+        //    //                            .HasRequired(r => r.UserId)
+        //    //                             .WithMany()
+        //    //                             //.HasForeignKey(x => x.UserId)
+        //    //                             .WillCascadeOnDelete();
+
+        //    modelBuilder.Entity<IdentityRole>().HasKey(x => x.Id);
+
+        //    modelBuilder.Entity<IdentityUser>().HasKey(x => x.Id);
+
+        //    base.OnModelCreating(modelBuilder);
+        //}
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
