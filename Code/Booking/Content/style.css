@@ -16,9 +16,13 @@
 }
 
 .sidebar {
-    background-color: silver;
-    border: 1px solid black;
+    border-right: 1px solid black;
     margin-top: 20px;
     height: 500px;
     text-align: center;
+    padding-top: 20px;
+}
+
+.sidebar a {
+    margin-bottom : 30px;
 }
