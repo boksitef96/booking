@@ -3,7 +3,8 @@
     ViewBag.Title = "AddNewAccomodation";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model Booking.Models.Accomodation
+@model Booking.ControlerViewModels.AccomodationCities
+
 
 <h1 style="margin:50px; text-align:center;">Dodajte novi objekat</h1>
 
@@ -11,22 +12,22 @@
 {
     <div class="form-group">
         <label>Naziv objekta</label>
-        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.Accomodation.Name, new { @class = "form-control" })
     </div>
 
     <div class="form-group">
         <label>Grad</label>
-        @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
+       @Html.DropDownListFor(m => m.Accomodation.CityIdNumber, new SelectList(@Model.Cities, "Id", "Name"), "Izaberite grad",new { @class = "form-control" })
     </div>
 
     <div class="form-group">
         <label>Drzava</label>
-        @Html.TextBoxFor(m => m.Country, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.Accomodation.Country, new { @class = "form-control" })
     </div>
 
     <div class="form-group">
         <label>Adresa</label>
-        @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.Accomodation.Address, new { @class = "form-control" })
     </div>
 
     <div class="form-group">
@@ -34,27 +35,32 @@
         <div style="font-weight:bold;margin-bottom:7px;">Broj zvezdica</div>
 
         <label class="radio-inline">
-            @Html.RadioButtonFor(m => m.Stars, "1", new { @name = "optradio" }) 1
+            @Html.RadioButtonFor(m => m.Accomodation.Stars, "1", new { @name = "optradio" }) 1
         </label>
         <label class="radio-inline">
-            @Html.RadioButtonFor(m => m.Stars, "2", new { @name = "optradio" }) 2
+            @Html.RadioButtonFor(m => m.Accomodation.Stars, "2", new { @name = "optradio" }) 2
         </label>
         <label class="radio-inline">
-            @Html.RadioButtonFor(m => m.Stars, "3", new { @name = "optradio" }) 3
+            @Html.RadioButtonFor(m => m.Accomodation.Stars, "3", new { @name = "optradio" }) 3
         </label>
         <label class="radio-inline">
-            @Html.RadioButtonFor(m => m.Stars, "4", new { @name = "optradio" }) 4
+            @Html.RadioButtonFor(m => m.Accomodation.Stars, "4", new { @name = "optradio" }) 4
         </label> 
         <label class="radio-inline">
-            @Html.RadioButtonFor(m => m.Stars, "5", new { @name = "optradio" }) 5
+            @Html.RadioButtonFor(m => m.Accomodation.Stars, "5", new { @name = "optradio" }) 5
         </label>
     </div>
 
     <div class="form-group">
         <label>Dodatni opis</label>
-        @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+        @Html.TextAreaFor(m => m.Accomodation.Description, new { @class = "form-control" })
     </div>
 
     <button type="submit" class="btn btn-primary">Sacuvaj</button>
 }
 
+<script>
+    $(document).ready(function () {
+        $('#city').select2();
+    });
+</script>
