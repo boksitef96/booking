@@ -9,9 +9,12 @@ namespace Booking
     {
         public void Configuration(IAppBuilder app)
         {
+     
             ConfigureAuth(app);
+            app.MapSignalR();
             RedisController r = new RedisController();
             r.InitializeRedis();
+
         }
     }
 }
