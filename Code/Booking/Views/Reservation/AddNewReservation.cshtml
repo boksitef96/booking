@@ -1,91 +1,45 @@
 ﻿
 @{
 
-                ViewBag.Title = "AddNewRoom";
-                Layout = "~/Views/Shared/_Layout.cshtml";
-              
+    ViewBag.Title = "AddNewRoom";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
 @model Booking.ControlerViewModels.ReservationDates
 
+
+<div class="hidden" id="flashDiv">Neko je upravo rezervisao ovu smestajnu jedinicu!</div>
 <h2 style="margin:50px; text-align:center;">Dodajte novu rezervaciju za odabranu smestajnu jedinicu</h2>
-@using (@Html.BeginForm("AddReservation", "Reservation",  new { roomId = Model.Reservation.Room.Id }, FormMethod.Post, null))
+@using (@Html.BeginForm("AddReservation", "Reservation", new { roomId = Model.Reservation.Room.Id }, FormMethod.Post, null))
 {
     <div class="row">
         <div class="form-group col-lg-5">
             <label>Pocetni datum</label>
-            @Html.TextBoxFor(m => m.Reservation.DateStart, new { @class = "form-control", @id = "dateStart" })
+            <div class="datePickerWraper">
+                @Html.TextBoxFor(m => m.Reservation.DateStart, new { @class = "form-control datePickerReservation", @id = "dateStart" })
+            </div> 
         </div>
 
         <div class="form-group col-lg-3">
             <label>Krajnji datum</label>
-            @Html.TextBoxFor(m => m.Reservation.DateEnd, new { @class = "form-control", @id = "dateEnd" })
+            @Html.TextBoxFor(m => m.Reservation.DateEnd, new { @class = "form-control datePickerReservation", @id = "dateEnd" })
         </div>
     </div>
-    
+
     <div class="form-group" style="margin-top:30px">
         <label>Dodatne napomene vezane za rezervaciju</label>
         @Html.TextAreaFor(m => m.Reservation.Comment, new { @class = "form-control" })
     </div>
 
-    <button type="submit" class="btn btn-primary">Dodaj</button>
+    <button type="submit" id="addReservation" class="btn btn-primary">Dodaj</button>
     <input type="hidden" id="dates" value=@Model.Dates />
 }
 
-<script>
+@section scripts {
+ 
+    
+    <script src="~/Scripts/jquery.signalR-2.4.0.min.js"></script>
+    <script src="~/signalR/hubs"></script>
+    @Scripts.Render("~/bundles/reservation")
 
-    var datesString = $("#dates").val();
-    var dates = datesString.split(",");
-    dates = dates.filter(d => d != "");
-
-    $("#dateStart").datepicker({
-        dateFormat: 'mm-dd-yy',
-        minDate: new Date(),
-        beforeShowDay: function (date) {
-            var dateString = (date.getMonth() + 1);
-            if (date.getMonth() < 9) {
-                dateString = "0" + dateString;
-            }
-            dateString += "-";
-
-            if (date.getDate() < 10)
-            {
-                dateString += "0";
-            }
-
-            dateString += date.getDate() + "-" + date.getFullYear();
-
-            if (!($.inArray(dateString, dates) != -1)) {
-                return [true, "", "Available"];
-            } else {
-                return [false, "", "Unvailable"];
-            }
-        }
-    });
-    $("#dateStart").datepicker().datepicker("setDate", new Date());
-
-    $("#dateEnd").datepicker({
-        dateFormat: 'mm-dd-yy',
-        minDate: new Date(),
-        beforeShowDay: function (date) {
-            var dateString = (date.getMonth() + 1);
-            if (date.getMonth() < 9) {
-                dateString = "0" + dateString;
-            }
-            dateString += "-";
-
-            if (date.getDate() < 10) {
-                dateString += "0";
-            }
-
-            dateString += date.getDate() + "-" + date.getFullYear();
-
-            if (!($.inArray(dateString, dates) != -1)) {
-                return [true, "", "Available"];
-            } else {
-                return [false, "", "Unavailable"];
-            }
-        }
-    });
-    $("#dateEnd").datepicker().datepicker("setDate", new Date());
-
-</script>
+}
