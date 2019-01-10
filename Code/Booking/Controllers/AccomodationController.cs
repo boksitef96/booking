@@ -16,18 +16,18 @@ namespace Booking.Controllers
 {
     public class AccomodationController : Controller
     {
-        private ApplicationDbContext _context;
+        private ApplicationDbContext sqlDB;
         public RedisController redisDB;
 
         public AccomodationController()
         {
-            _context = new ApplicationDbContext();
+            sqlDB = new ApplicationDbContext();
             redisDB = new RedisController();
         }
 
         protected override void Dispose(bool disposing)
         {
-            _context.Dispose();
+            sqlDB.Dispose();
         }
 
         // GET: Accomodation
@@ -41,7 +41,7 @@ namespace Booking.Controllers
         public ActionResult AddNewAccomodation()
         {
             Accomodation accomodation = new Accomodation();
-            List<City> cities = _context.Cities.ToList();
+            List<City> cities = sqlDB.Cities.ToList();
             AccomodationCities accomodationCities = new AccomodationCities
             {
                 Accomodation = accomodation,
@@ -54,22 +54,22 @@ namespace Booking.Controllers
         public ActionResult AddAccomodation(Accomodation accomodation)
         {
             var currentUserName = System.Web.HttpContext.Current.User.Identity.Name;
-            var user = _context.Users.Where(x => x.Email == currentUserName).FirstOrDefault();
+            var user = sqlDB.Users.Where(x => x.Email == currentUserName).FirstOrDefault();
           
             accomodation.User = user;
             accomodation.AvailableRooms = 0;
             accomodation.CreationDate = DateTime.Now;
             accomodation.LastUpdate = DateTime.Now;
             accomodation.Rating = 0;
-            var city = _context.Cities.Where(x => x.Id == accomodation.CityIdNumber).FirstOrDefault();
+            var city = sqlDB.Cities.Where(x => x.Id == accomodation.CityIdNumber).FirstOrDefault();
             accomodation.City = city;
-            _context.Accomodations.Add(accomodation);
+            sqlDB.Accomodations.Add(accomodation);
             if (accomodation.Stars > 3)
             {
                 redisDB.AddAccomodationToList("accomodationByStars", accomodation);
             }
             redisDB.AddAccomodationToList("accomodationNewest", accomodation);
-            _context.SaveChanges();
+            sqlDB.SaveChanges();
 
             return RedirectToAction("Index", "Home");
         }
@@ -79,7 +79,7 @@ namespace Booking.Controllers
         [Route("show-all-accomoations/{type}", Name ="show_all_accomodations")]
         public ActionResult ShowAllAccomodations(string type)
         {
-            //var accomodations = _context.Accomodations.ToList();
+            //var accomodations = sqlDB.Accomodations.ToList();
             List<Accomodation> accomodations=null;
             if (type == "newest")
             {
@@ -91,7 +91,7 @@ namespace Booking.Controllers
             }
             if (type == "all")
             {
-                accomodations = _context.Accomodations.ToList();
+                accomodations = sqlDB.Accomodations.ToList();
             }
 
             return View(accomodations);
@@ -103,27 +103,45 @@ namespace Booking.Controllers
         public ActionResult ShowAllAccomodationsByUser()
         {
             var currentUserName = System.Web.HttpContext.Current.User.Identity.Name;
-            var user = _context.Users.Where(x => x.Email == currentUserName).FirstOrDefault();
+            var user = sqlDB.Users.Where(x => x.Email == currentUserName).FirstOrDefault();
            
-            var accomodations = _context.Accomodations.Where(a => a.User.Id == user.Id).ToList();
+            var accomodations = sqlDB.Accomodations.Where(a => a.User.Id == user.Id).ToList();
             return View(accomodations);
         }
 
         [Authorize]
         public ActionResult DeleteAccomodation(int id)
         {
-            var accomodation = _context.Accomodations.Where(a => a.Id == id).FirstOrDefault();
+            var accomodation = sqlDB.Accomodations.Where(a => a.Id == id).FirstOrDefault();
 
-            _context.Accomodations.Remove(accomodation);
-            _context.SaveChanges();
+            sqlDB.Accomodations.Remove(accomodation);
+            sqlDB.SaveChanges();
 
             return RedirectToAction("Index", "Home");
         }
 
         public int GetLastAccomodation()
         {
-            Accomodation accomodation = _context.Accomodations.OrderByDescending(a => a.Id).FirstOrDefault();
+            Accomodation accomodation = sqlDB.Accomodations.OrderByDescending(a => a.Id).FirstOrDefault();
             return accomodation.Id;
+        }
+
+        public int GetAccountIdByRoom(int roomId)
+        {
+            List<Accomodation> accomodations = sqlDB.Accomodations.ToList();
+            List<Room> rooms = sqlDB.Rooms.ToList();
+            Accomodation accomodation = new Accomodation();
+
+            foreach (Room roomObj in rooms)
+            {
+                if (roomObj.Id == roomId)
+                {
+                    accomodation = roomObj.Accomodation;
+                }
+            }
+            var accomodationId = accomodation.Id;
+
+            return accomodationId;
         }
     }
 }

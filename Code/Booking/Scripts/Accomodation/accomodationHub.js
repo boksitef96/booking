@@ -3,7 +3,7 @@
     var hub = $.connection.signalRHub;
 
     // funkcije nakon odgovora server
-    hub.client.addFlashMessageForAccomodation = function (name,country,id) {
+    hub.client.addFlashMessageForAccomodation = function (name, country, id) {
         $("#flashDiv").attr("class", "flashDiv");
         var newAccomodation =
             `<div class="card col-lg-3">

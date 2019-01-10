@@ -12,18 +12,18 @@ namespace Booking.Controllers
 {
     public class RedisController : Controller
     {
-        private ApplicationDbContext _context;
+        private ApplicationDbContext sqlDB;
         RedisClient redis = new RedisClient("localhost", 6379);
         JavaScriptSerializer jsonS = new JavaScriptSerializer();
 
         public RedisController()
         {
-            _context = new ApplicationDbContext();
+            sqlDB = new ApplicationDbContext();
         }
 
         protected override void Dispose(bool disposing)
         {
-            _context.Dispose();
+            sqlDB.Dispose();
         }
         // GET: Redis
         public ActionResult Index()
@@ -40,7 +40,7 @@ namespace Booking.Controllers
         public void InitializeRedisByStars()
         {
             List<Accomodation> accomodations;
-            accomodations = _context.Accomodations.Where(a => a.Stars > 3).ToList();
+            accomodations = sqlDB.Accomodations.Where(a => a.Stars > 3).ToList();
             int index = 0;
             redis.Del("accomodationByStars");
             foreach (Accomodation acomodation in accomodations)
@@ -54,7 +54,7 @@ namespace Booking.Controllers
         public void InitializeRedisNewest()
         {
             List<Accomodation> accomodations;
-            accomodations = _context.Accomodations.OrderByDescending(a=>a.Id).Take(10).ToList();
+            accomodations = sqlDB.Accomodations.OrderByDescending(a=>a.Id).Take(10).ToList();
             accomodations.Reverse();
             redis.Del("accomodationNewest");
             foreach (Accomodation acomodation in accomodations)

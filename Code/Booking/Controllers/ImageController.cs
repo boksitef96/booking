@@ -12,16 +12,16 @@ namespace Booking.Controllers
 {
     public class ImageController : Controller
     {
-        private ApplicationDbContext _context;
+        private ApplicationDbContext sqlDB;
 
         public ImageController()
         {
-            _context = new ApplicationDbContext();
+            sqlDB = new ApplicationDbContext();
         }
 
         protected override void Dispose(bool disposing)
         {
-            _context.Dispose();
+            sqlDB.Dispose();
         }
 
         [Authorize]
@@ -29,7 +29,7 @@ namespace Booking.Controllers
         public ActionResult AddNewImage(int accomodationId)
         {
             ImageObject image = new ImageObject();
-            var accomodation = _context.Accomodations.Where(a => a.Id == accomodationId).FirstOrDefault();
+            var accomodation = sqlDB.Accomodations.Where(a => a.Id == accomodationId).FirstOrDefault();
             image.Accomodation = accomodation;
 
             return View(image);
@@ -50,18 +50,18 @@ namespace Booking.Controllers
             image.ImagePath = imageObject.ImagePath;
             image.Title = imageObject.Title;
 
-            var accomodation = _context.Accomodations.Where(a => a.Id == accomodationId).FirstOrDefault();
+            var accomodation = sqlDB.Accomodations.Where(a => a.Id == accomodationId).FirstOrDefault();
             image.Accomodation = accomodation;
             
-            _context.Images.Add(image);
-            _context.SaveChanges();
+            sqlDB.Images.Add(image);
+            sqlDB.SaveChanges();
             return RedirectToAction("Index", "Home");
         }
 
         [Route("show-images/{accomodationId}", Name = "show_images")]
         public ActionResult ShowImages(int accomodationId)
         {
-            List<ImageModels> images = _context.Images.Where(a => a.Accomodation.Id == accomodationId).ToList();
+            List<ImageModels> images = sqlDB.Images.Where(a => a.Accomodation.Id == accomodationId).ToList();
            
             return View(images);
         }

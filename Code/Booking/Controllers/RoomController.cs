@@ -11,16 +11,16 @@ namespace Booking.Controllers
 {
     public class RoomController : Controller
     {
-        private ApplicationDbContext _context;
+        private ApplicationDbContext sqlDB;
 
         public RoomController()
         {
-            _context = new ApplicationDbContext();
+            sqlDB = new ApplicationDbContext();
         }
 
         protected override void Dispose(bool disposing)
         {
-            _context.Dispose();
+            sqlDB.Dispose();
         }
 
         // GET: Room
@@ -34,7 +34,7 @@ namespace Booking.Controllers
         public ActionResult AddNewRoom(int accomodationId)
         {
             var room = new Room();
-            var accomodation = _context.Accomodations.Where(a => a.Id == accomodationId).FirstOrDefault();
+            var accomodation = sqlDB.Accomodations.Where(a => a.Id == accomodationId).FirstOrDefault();
             room.Accomodation = accomodation;
             return View(room);
         }
@@ -44,8 +44,8 @@ namespace Booking.Controllers
         public ActionResult AddRoom(Room room, int accomodationId)
         {
             var currentUserName = System.Web.HttpContext.Current.User.Identity.Name;
-            var user = _context.Users.Where(x => x.Email == currentUserName).FirstOrDefault();
-            var accomodation = _context.Accomodations.Where(a => a.Id == accomodationId).FirstOrDefault();
+            var user = sqlDB.Users.Where(x => x.Email == currentUserName).FirstOrDefault();
+            var accomodation = sqlDB.Accomodations.Where(a => a.Id == accomodationId).FirstOrDefault();
 
             room.User = user;
             room.CreationDate = DateTime.Now;
@@ -55,8 +55,8 @@ namespace Booking.Controllers
             accomodation.AvailableRooms++;
             //accomodation.Rooms.Add(room);
 
-            _context.Rooms.Add(room);
-            _context.SaveChanges();
+            sqlDB.Rooms.Add(room);
+            sqlDB.SaveChanges();
 
             return RedirectToAction("Index", "Home");
         }
@@ -65,10 +65,10 @@ namespace Booking.Controllers
         [Route("show-rooms/{accomodationId}/{type}", Name = "show_rooms")]
         public ActionResult ShowAllRoomsForAccomodation(int accomodationId, bool type)
         {
-            var accomodation = _context.Accomodations.Where(a => a.Id == accomodationId).FirstOrDefault();
+            var accomodation = sqlDB.Accomodations.Where(a => a.Id == accomodationId).FirstOrDefault();
             var rooms = new List<Room>();
-            rooms = _context.Rooms.Where(r => r.Accomodation.Id == accomodationId).ToList();
-            City city = _context.Cities.Where(c => c.Id == accomodation.CityIdNumber).FirstOrDefault();
+            rooms = sqlDB.Rooms.Where(r => r.Accomodation.Id == accomodationId).ToList();
+            City city = sqlDB.Cities.Where(c => c.Id == accomodation.CityIdNumber).FirstOrDefault();
             AccomodationDetails accomomodationDetails = new AccomodationDetails
             {
                 Accomodation = accomodation,

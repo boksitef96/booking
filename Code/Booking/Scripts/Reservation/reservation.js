@@ -12,7 +12,6 @@ function reservationHub()
 
     // funkcije nakon odgovora server
     hub.client.addFlashMessageForReservation = function (disableDates, roomId) {
-
         var roomIdCurrent = $("#flashDiv").attr("data-id");
         if (roomId == roomIdCurrent) {
             $("#flashDiv").attr("class", "flashDiv");
@@ -24,11 +23,14 @@ function reservationHub()
     };
 
     hub.client.addFlashMessageForAccomodationDetails = function (text, roomId) {
-        var roomIdCurrent = $("#flashDiv").attr("data-id");
-        if (roomId == roomIdCurrent) {
-            $("#flashDiv").attr("class", "flashDiv");
-            $("#flashDiv").html(text);
+        var roomIdCurrent = $("#flashDivDetails").attr("data-id");
+        if (roomIdCurrent) {
+            if (roomId == roomIdCurrent) {
+                $("#flashDivDetails").attr("class", "flashDiv");
+                $("#flashDivDetails").html(text);
+            }
         }
+
     }
     
     //pocetak konekcije, funkcije koje pozivaju serverske fje
