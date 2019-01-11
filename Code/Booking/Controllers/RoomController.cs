@@ -1,7 +1,9 @@
 ﻿using Booking.Models;
+using Booking.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -66,8 +68,14 @@ namespace Booking.Controllers
             var accomodation = _context.Accomodations.Where(a => a.Id == accomodationId).FirstOrDefault();
             var rooms = new List<Room>();
             rooms = _context.Rooms.Where(r => r.Accomodation.Id == accomodation.Id).ToList();
-
-            return View("ShowAllRoomsForAccomodation", rooms);
+            City city = _context.Cities.Where(c => c.Id == accomodation.CityIdNumber).FirstOrDefault();
+            AccomodationDetails accomomodationDetails = new AccomodationDetails
+            {
+                Accomodation = accomodation,
+                Rooms = rooms,
+                City=city
+            };
+            return View("ShowAllRoomsForAccomodation", accomomodationDetails);
         }
     }
 }

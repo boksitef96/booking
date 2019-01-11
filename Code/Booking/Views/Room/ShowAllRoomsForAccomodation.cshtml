@@ -3,114 +3,153 @@
     ViewBag.Title = "ShowRooms";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model List<Booking.Models.Room>
+@model Booking.ViewModels.AccomodationDetails
 
-<h2 style="text-align: center">Smestajne jedinice</h2>
 
-<div class="cardsWrapper row">
-    @{
-        foreach (var room in Model)
-        {
-    <div class="card col-lg-3">
-
-        <h4> 1/@room.Capacity soba - @room.Accomodation.Name, @room.Accomodation.City </h4>
-        <h5> @room.Accomodation.City, @room.Accomodation.Country</h5>
-        <hr />
-        <div>
-            <b>Adresa: </b>@room.Accomodation.Address
-        </div>
-        <div>
-            <b>Cena (din): </b>@room.Price
-        </div>
-        <div>
-            <b>Ocena: </b>@room.Accomodation.Rating
-        </div>
-        <div class="row">
-            <div class="col-lg-7"><b>Wifi</b></div>
-            @{
-                if (room.Wifi)
-                {
-                    <div class="col-lg-4"> <i class="fa fa-check"></i></div>
-                }
-                else
-                {
-                    <div class="col-lg-4"> <i class="fa fa-times"></i></div>
-                }
-            }
-        </div>
-        <div class="row">
-            <div class="col-lg-7"><b>Parking</b></div>
-            @{
-                if (room.Parking)
-                {
-                    <div class="col-lg-4"> <i class="fa fa-check"></i></div>
-                }
-                else
-                {
-                    <div class="col-lg-4"> <i class="fa fa-times"></i></div>
-                }
-            }
-        </div>
-        <div class="row">
-            <div class="col-lg-7"><b>TV</b></div>
-            @{
-                if (room.TV)
-                {
-                    <div class="col-lg-4"> <i class="fa fa-check"></i></div>
-                }
-                else
-                {
-                    <div class="col-lg-4"> <i class="fa fa-times"></i></div>
-                }
-            }
-        </div>
-        <div class="row">
-            <div class="col-lg-7"><b>Dozvoljene zivotinje</b></div>
-            @{
-                if (room.PetFriendly)
-                {
-                    <div class="col-lg-4"> <i class="fa fa-check"></i></div>
-                }
-                else
-                {
-                    <div class="col-lg-4"> <i class="fa fa-times"></i></div>
-                }
-            }
-        </div>
-        <div class="row">
-            <div class="col-lg-7"><b>Terasa</b></div>
-            @{
-                if (room.Terrace)
-                {
-                    <div class="col-lg-4"> <i class="fa fa-check"></i></div>
-                }
-                else
-                {
-                    <div class="col-lg-4"> <i class="fa fa-times"></i></div>
-                }
-            }
-        </div>
-        <div class="row">
-            <div class="col-lg-7"><b>Klima</b></div>
-            @{
-                if (room.AC)
-                {
-                    <div class="col-lg-4"> <i class="fa fa-check"></i></div>
-                }
-                else
-                {
-                    <div class="col-lg-4"> <i class="fa fa-times"></i></div>
-                }
-            }
-        </div>
-        <div>
-            <b>Dodatni opis: </b>@room.Descritpion
-        </div>
-        <a class="btn btn-block btn-info" style="margin-top:10px;" href='@Url.RouteUrl("add_new_reservation", new { roomId = room.Id })'>Rezervisi smestajnu jedinicu</a>
-
-        @*<a class="btn btn-block btn-success" style="margin-top:10px;" href='@Url.RouteUrl("add_new_room", new { accomodationId = accomodation.Id })'>Izmeni smestajnu jedinicu</a>*@
-        @*@Html.ActionLink("Obrisi ovaj smestajni objekat", "DeleteAccomodation", "Accomodation", new { id = accomodation.Id }, new { @class = "btn btn-block btn-danger" })*@
+<h2 style="text-align: center; margin-bottom:30px;">@Model.Accomodation.Name</h2>
+<div class="col-lg-3" style="border-right:1px black solid; height:440px; font-size:20px;">
+    <h3 style="text-align:center;">Informacije:</h3> </br>
+    <div style="margin-bottom:10px;">
+        <i class="fa fa-address-card" aria-hidden="true"></i> <b>Adresa: </br> </b>@Model.Accomodation.Address
     </div>
-        }
-    }
+    <div style="margin-bottom:10px;">
+        <i class="fa fa-star" aria-hidden="true"></i><b>Zvezdice: </b>@Model.Accomodation.Stars
+    </div>
+    <div style="margin-bottom:10px;">
+        <i class="fa fa-check" aria-hidden="true"></i> <b>Ocena: </b>@Model.Accomodation.Rating
+    </div>
+    <div style="margin-bottom:10px;">
+        <i class="fa fa-list-alt"></i> <b>Dodatni opis: </br> </b><div style="font-size:15px;">@Model.Accomodation.Description</div>
+    </div>
 </div>
+<input id="coordinates" type="hidden" data-latitude=@Model.City.Latitude data-longitude=@Model.City.Longitude value=@Model.City />
+<div class="col-lg-9">
+    <div class="col-lg-10">
+        <h3 style="text-align:center;">Lokacija:</h3> </br>
+        <div id="map" style="height:200px">
+
+        </div>
+    </div>
+    <div class="col-lg-2">
+        <h3 style="text-align:center;">Vreme:</h3> </br>
+        <div id="accomodationWeather">
+            <h3 style="text-align:center;">Lokacija:</h3> </br>
+
+        </div>
+    </div>
+
+    <div class="cardsWrapper row">
+        @{
+            foreach (var room in Model.Rooms)
+            {
+                <div class="card col-lg-4">
+
+                    <h4> 1/@room.Capacity soba - @room.Accomodation.Name, @room.Accomodation.City </h4>
+                    <h5> @room.Accomodation.City, @room.Accomodation.Country</h5>
+                    <hr />
+                    <div>
+                        <b>Adresa: </b>@room.Accomodation.Address
+                    </div>
+                    <div>
+                        <b>Cena (din): </b>@room.Price
+                    </div>
+                    <div>
+                        <b>Ocena: </b>@room.Accomodation.Rating
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-7"><b>Wifi</b></div>
+                        @{
+                            if (room.Wifi)
+                            {
+                                <div class="col-lg-4"> <i class="fa fa-check"></i></div>
+                            }
+                            else
+                            {
+                                <div class="col-lg-4"> <i class="fa fa-times"></i></div>
+                            }
+                        }
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-7"><b>Parking</b></div>
+                        @{
+                            if (room.Parking)
+                            {
+                                <div class="col-lg-4"> <i class="fa fa-check"></i></div>
+                            }
+                            else
+                            {
+                                <div class="col-lg-4"> <i class="fa fa-times"></i></div>
+                            }
+                        }
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-7"><b>TV</b></div>
+                        @{
+                            if (room.TV)
+                            {
+                                <div class="col-lg-4"> <i class="fa fa-check"></i></div>
+                            }
+                            else
+                            {
+                                <div class="col-lg-4"> <i class="fa fa-times"></i></div>
+                            }
+                        }
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-7"><b>Dozvoljene zivotinje</b></div>
+                        @{
+                            if (room.PetFriendly)
+                            {
+                                <div class="col-lg-4"> <i class="fa fa-check"></i></div>
+                            }
+                            else
+                            {
+                                <div class="col-lg-4"> <i class="fa fa-times"></i></div>
+                            }
+                        }
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-7"><b>Terasa</b></div>
+                        @{
+                            if (room.Terrace)
+                            {
+                                <div class="col-lg-4"> <i class="fa fa-check"></i></div>
+                            }
+                            else
+                            {
+                                <div class="col-lg-4"> <i class="fa fa-times"></i></div>
+                            }
+                        }
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-7"><b>Klima</b></div>
+                        @{
+                            if (room.AC)
+                            {
+                                <div class="col-lg-4"> <i class="fa fa-check"></i></div>
+                            }
+                            else
+                            {
+                                <div class="col-lg-4"> <i class="fa fa-times"></i></div>
+                            }
+                        }
+                    </div>
+                    <div>
+                        <b>Dodatni opis: </b>@room.Descritpion
+                    </div>
+                    <a class="btn btn-block btn-info" style="margin-top:10px;" href='@Url.RouteUrl("add_new_reservation", new { roomId = room.Id })'>Rezervisi smestajnu jedinicu</a>
+
+                    @*<a class="btn btn-block btn-success" style="margin-top:10px;" href='@Url.RouteUrl("add_new_room", new { accomodationId = accomodation.Id })'>Izmeni smestajnu jedinicu</a>*@
+                    @*@Html.ActionLink("Obrisi ovaj smestajni objekat", "DeleteAccomodation", "Accomodation", new { id = accomodation.Id }, new { @class = "btn btn-block btn-danger" })*@
+                </div>
+            }
+        }
+    </div>
+</div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/accomodation")
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrSg49lehHSCaDtWljrIE7uiwBxZRUIBY&callback=initMap">
+    </script>
+}

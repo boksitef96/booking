@@ -32,6 +32,11 @@ namespace Booking
             bundles.Add(new ScriptBundle("~/bundles/reservation").Include(
                        "~/Scripts/Reservation/reservation.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/accomodation").Include(
+                  "~/Scripts/Accomodation/accomodationMap.js",
+                  "~/Scripts/Accomodation/accomodationWeather.js"
+                  ));
+
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
