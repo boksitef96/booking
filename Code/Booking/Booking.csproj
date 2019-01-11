@@ -205,8 +205,9 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="ControlerViewModels\AccomodationCities.cs" />
-    <Compile Include="ControlerViewModels\ReservationDates.cs" />
+    <Compile Include="ViewModels\AccomodationCities.cs" />
+    <Compile Include="ViewModels\AccomodationDetails.cs" />
+    <Compile Include="ViewModels\ReservationDates.cs" />
     <Compile Include="Controllers\AccomodationController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -318,6 +319,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\Accomodation\accomodationMap.js" />
+    <Content Include="Scripts\Accomodation\accomodationWeather.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">

@@ -23,22 +23,7 @@
                 <h4> @accomodation.Name, @accomodation.City </h4>
                 <h5> @accomodation.Country</h5>
                 <hr />
-                <div>
-                    <b>Adresa: </b>@accomodation.Address
-                </div>
-                <div>
-                    <b>Broj slobodnih soba: </b>@accomodation.AvailableRooms
-                </div>
-                <div>
-                    <b>Zvezdice: </b>@accomodation.Stars
-                </div>
-                <div>
-                    <b>Ocena: </b>@accomodation.Rating
-                </div>
-                <div>
-                    <b>Dodatni opis: </b>@accomodation.Description
-                </div>
-                <a class="btn btn-block btn-default" href='@Url.RouteUrl("show_rooms", new { accomodationId = accomodation.Id, type = true })'>Pregledaj sobe<i style="margin-left:5px" class="fas fa-bed"></i></a>
+                <a class="btn btn-block btn-default" href='@Url.RouteUrl("show_rooms", new { accomodationId = accomodation.Id, type = true })'>Detaljnije<i style="margin-left:5px" class="fas fa-info-circle"></i></a>
 
             </div>
                 }
