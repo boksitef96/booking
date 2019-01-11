@@ -115,5 +115,10 @@ namespace Booking.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public int GetLastAccomodation()
+        {
+            Accomodation accomodation = _context.Accomodations.OrderByDescending(a => a.Id).FirstOrDefault();
+            return accomodation.Id;
+        }
     }
 }
