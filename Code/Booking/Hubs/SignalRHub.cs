@@ -9,7 +9,7 @@ namespace Booking
 {
     public class SignalRHub : Hub
     {
-        ReservationController reservationController = new ReservationController();
+        AccomodationController accomodationController = new AccomodationController();
         public void Send(string name, string message)
         {
             Clients.All.addNewMessageToPage(name, message);
@@ -25,7 +25,11 @@ namespace Booking
                 currentdate = currentdate.AddDays(1);
             }
             Clients.All.addFlashMessageForReservation(disableDates);
-
+        }
+        public void AddAccomodation(string name,string country)
+        {
+            int id = accomodationController.GetLastAccomodation();
+            Clients.All.addFlashMessageForAccomodation(name,country,id);
         }
     }
 }

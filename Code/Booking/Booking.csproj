@@ -319,6 +319,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\Accomodation\accomodationHub.js" />
     <Content Include="Scripts\Accomodation\accomodationMap.js" />
     <Content Include="Scripts\Accomodation\accomodationWeather.js" />
     <Content Include="Scripts\bootstrap.js" />

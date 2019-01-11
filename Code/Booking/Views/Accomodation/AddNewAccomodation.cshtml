@@ -17,7 +17,7 @@
 
     <div class="form-group">
         <label>Grad</label>
-       @Html.DropDownListFor(m => m.Accomodation.CityIdNumber, new SelectList(@Model.Cities, "Id", "Name"), "Izaberite grad",new { @class = "form-control" })
+        @Html.DropDownListFor(m => m.Accomodation.CityIdNumber, new SelectList(@Model.Cities, "Id", "Name"), "Izaberite grad", new { @class = "form-control" })
     </div>
 
     <div class="form-group">
@@ -45,7 +45,7 @@
         </label>
         <label class="radio-inline">
             @Html.RadioButtonFor(m => m.Accomodation.Stars, "4", new { @name = "optradio" }) 4
-        </label> 
+        </label>
         <label class="radio-inline">
             @Html.RadioButtonFor(m => m.Accomodation.Stars, "5", new { @name = "optradio" }) 5
         </label>
@@ -56,11 +56,19 @@
         @Html.TextAreaFor(m => m.Accomodation.Description, new { @class = "form-control" })
     </div>
 
-    <button type="submit" class="btn btn-primary">Sacuvaj</button>
+    <button type="submit" id="addAccomodation" class="btn btn-primary">Sacuvaj</button>
 }
 
-<script>
-    $(document).ready(function () {
-        $('#city').select2();
-    });
-</script>
+
+@section scripts {
+    <script>
+        setTimeout(function () {
+            $(document).ready(function () {
+                $('#city').select2();
+            });
+        }, 5)
+    </script>
+    <script src="~/Scripts/jquery.signalR-2.4.0.min.js"></script>
+    <script src="~/signalR/hubs"></script>
+    @Scripts.Render("~/bundles/accomodationHub")
+}

@@ -4,6 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @model IEnumerable<Booking.Models.Accomodation>
+<div class="hidden" id="flashDiv" style="background-color:green;">Upravo je dodata nova smestajna jedinica!</div>
 <div class="row">
     <div class="col-lg-3 sidebar">
         @if (Request.IsAuthenticated)
@@ -19,16 +20,21 @@
             @{
                 foreach (var accomodation in Model)
                 {
-            <div class="card col-lg-3">
-                <h4> @accomodation.Name, @accomodation.City </h4>
-                <h5> @accomodation.Country</h5>
-                <hr />
-                <a class="btn btn-block btn-default" href='@Url.RouteUrl("show_rooms", new { accomodationId = accomodation.Id, type = true })'>Detaljnije<i style="margin-left:5px" class="fas fa-info-circle"></i></a>
+                    <div class="card col-lg-3">
+                        <h4> @accomodation.Name, @accomodation.City </h4>
+                        <h5> @accomodation.Country</h5>
+                        <hr />
+                        <a class="btn btn-block btn-default" href='@Url.RouteUrl("show_rooms", new { accomodationId = accomodation.Id, type = true })'>Detaljnije<i style="margin-left:5px" class="fas fa-info-circle"></i></a>
 
-            </div>
+                    </div>
                 }
             }
         </div>
     </div>
 </div>
 
+@section scripts {
+    <script src="~/Scripts/jquery.signalR-2.4.0.min.js"></script>
+    <script src="~/signalR/hubs"></script>
+    @Scripts.Render("~/bundles/accomodationHub")
+}
