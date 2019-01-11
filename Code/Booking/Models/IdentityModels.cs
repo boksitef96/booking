@@ -25,6 +25,8 @@ namespace Booking.Models
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<City> Cities { get; set; }
+        public DbSet<ImageModels> Images{ get; set; }
+
 
         //protected override void OnModelCreating(DbModelBuilder modelBuilder)
         //{

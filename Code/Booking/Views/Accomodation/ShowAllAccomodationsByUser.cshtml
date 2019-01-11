@@ -11,28 +11,20 @@
     @{
         foreach (var accomodation in Model)
         {
-            <div class="card col-lg-3">
-                <h4 style="display:inline-block; width: 53%;"> @accomodation.Name, @accomodation.City </h4>
-                <a style="display:inline-block; width: 45%;" class="btn btn-default" href='@Url.RouteUrl("show_rooms", new { accomodationId = accomodation.Id, type = true })'>Pregledaj sobe <br /><i class="fas fa-bed"></i></a>
+            <div class="card col-lg-4">
+                <h4 style="display:inline-block; width: 53%;"> @accomodation.Name</h4>
+                <a style="display:inline-block; width: 45%;" class="btn btn-default" href='@Url.RouteUrl("show_rooms", new { accomodationId = accomodation.Id, type = true })'>Detalji <br /><i class="fas fa-bed"></i></a>
                 <h5> @accomodation.Country</h5>
-                <hr />
+                <br />
                 <div>
                     <b>Adresa: </b>@accomodation.Address
                 </div>
-                <div>
-                    <b>Broj slobodnih soba: </b>@accomodation.AvailableRooms
-                </div>
-                <div>
-                    <b>Zvezdice: </b>@accomodation.Stars
-                </div>
-                <div>
-                    <b>Ocena: </b>@accomodation.Rating
-                </div>
-                <div>
-                    <b>Dodatni opis: </b>@accomodation.Description
-                </div>
+                <a class="btn btn-block btn-default" href='@Url.RouteUrl("add_new_image", new { accomodationId = accomodation.Id })'>
+                    Dodaj fotografiju  <i style="margin-left:5px;" class="fa fa-image" aria-hidden="true"></i>
+                </a>
                 <a class="btn btn-block btn-success" style="margin-top:10px;" href='@Url.RouteUrl("add_new_room", new { accomodationId = accomodation.Id })'>Dodaj novu smestajnu jedinicu</a>
                 @Html.ActionLink("Obrisi ovaj smestajni objekat", "DeleteAccomodation", "Accomodation", new { id = accomodation.Id }, new { @class = "btn btn-block btn-danger" })
+
             </div>
 
         }

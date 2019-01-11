@@ -67,7 +67,7 @@ namespace Booking.Controllers
         {
             var accomodation = _context.Accomodations.Where(a => a.Id == accomodationId).FirstOrDefault();
             var rooms = new List<Room>();
-            rooms = _context.Rooms.Where(r => r.Accomodation.Id == accomodation.Id).ToList();
+            rooms = _context.Rooms.Where(r => r.Accomodation.Id == accomodationId).ToList();
             City city = _context.Cities.Where(c => c.Id == accomodation.CityIdNumber).FirstOrDefault();
             AccomodationDetails accomomodationDetails = new AccomodationDetails
             {

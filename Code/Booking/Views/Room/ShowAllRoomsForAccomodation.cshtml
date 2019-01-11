@@ -5,27 +5,35 @@
 }
 @model Booking.ViewModels.AccomodationDetails
 
+<div class="hidden" id="flashDiv" data-id="@Model.Accomodation.Id"></div>
 
 <h2 style="text-align: center; margin-bottom:30px;">@Model.Accomodation.Name</h2>
-<div class="col-lg-3" style="border-right:1px black solid; height:440px; font-size:20px;">
-    <h3 style="text-align:center;">Informacije:</h3> </br>
-    <div style="margin-bottom:10px;">
-        <i class="fa fa-address-card" aria-hidden="true"></i> <b>Adresa: </br> </b>@Model.Accomodation.Address
+
+<div class="col-lg-3 details">
+
+    <h3 style="text-align:center;">Informacije:</h3>
+
+    <div>
+        <i class="fa fa-address-card" aria-hidden="true"></i> <b>Adresa: <br /> </b>@Model.Accomodation.Address
     </div>
-    <div style="margin-bottom:10px;">
+    <div>
         <i class="fa fa-star" aria-hidden="true"></i><b>Zvezdice: </b>@Model.Accomodation.Stars
     </div>
-    <div style="margin-bottom:10px;">
+    <div>
         <i class="fa fa-check" aria-hidden="true"></i> <b>Ocena: </b>@Model.Accomodation.Rating
     </div>
-    <div style="margin-bottom:10px;">
-        <i class="fa fa-list-alt"></i> <b>Dodatni opis: </br> </b><div style="font-size:15px;">@Model.Accomodation.Description</div>
+    <div>
+        <i class="fa fa-list-alt"></i> <b>Dodatni opis: <br /> </b><div style="font-size:15px;">@Model.Accomodation.Description</div>
     </div>
+    <a class="btn btn-block btn-default"href='@Url.RouteUrl("show_images", new { accomodationId = Model.Accomodation.Id })'>
+        Prikazi fotografije  <i style="margin-left:5px;" class="fa fa-image" aria-hidden="true"></i>
+    </a>
 </div>
+
 <input id="coordinates" type="hidden" data-latitude=@Model.City.Latitude data-longitude=@Model.City.Longitude value=@Model.City />
 <div class="col-lg-9">
     <div class="col-lg-10">
-        <h3 style="text-align:center;">Lokacija:</h3> </br>
+        <h3 style="text-align:center;">Lokacija:</h3> <br />
         <div id="map" style="height:200px">
 
         </div>
@@ -42,10 +50,10 @@
         @{
             foreach (var room in Model.Rooms)
             {
-                <div class="card col-lg-4">
+                <div class="card col-lg-5" style="margin-left:20px">
 
-                    <h4> 1/@room.Capacity soba - @room.Accomodation.Name, @room.Accomodation.City </h4>
-                    <h5> @room.Accomodation.City, @room.Accomodation.Country</h5>
+                    <h4> 1/@room.Capacity soba - @room.Accomodation.Name </h4>
+                    <h5> @room.Accomodation.Country</h5>
                     <hr />
                     <div>
                         <b>Adresa: </b>@room.Accomodation.Address
@@ -148,6 +156,11 @@
 </div>
 
 @section scripts {
+
+    <script src="~/Scripts/jquery.signalR-2.4.0.min.js"></script>
+    <script src="~/signalR/hubs"></script>
+    @Scripts.Render("~/bundles/reservation")
+    @Scripts.Render("~/bundles/accomodationHub")
     @Scripts.Render("~/bundles/accomodation")
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrSg49lehHSCaDtWljrIE7uiwBxZRUIBY&callback=initMap">

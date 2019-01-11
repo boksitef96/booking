@@ -10,11 +10,8 @@ namespace Booking
     public class SignalRHub : Hub
     {
         AccomodationController accomodationController = new AccomodationController();
-        public void Send(string name, string message)
-        {
-            Clients.All.addNewMessageToPage(name, message);
-        }
-        public void AddReservation(string disableDates,string startDate, string endDate)
+
+        public void AddReservation(string disableDates, string startDate, string endDate, int roomId)
         {
             DateTime dateStart = DateTime.Parse(startDate);
             DateTime dateEnd = DateTime.Parse(endDate);
@@ -24,12 +21,16 @@ namespace Booking
                 disableDates += currentdate.Date.ToString("MM-dd-yyyy") + ",";
                 currentdate = currentdate.AddDays(1);
             }
-            Clients.All.addFlashMessageForReservation(disableDates);
+            Clients.All.addFlashMessageForReservation(disableDates, roomId);
+
+            string text = "Ova smestajna jedinica je upravo rezervisana u periodu od " + startDate + " do " + endDate + "!";
+            Clients.All.addFlashMessageForAccomodationDetails(text, roomId);
         }
-        public void AddAccomodation(string name,string country)
+
+        public void AddAccomodation(string name, string country)
         {
             int id = accomodationController.GetLastAccomodation();
-            Clients.All.addFlashMessageForAccomodation(name,country,id);
+            Clients.All.addFlashMessageForAccomodation(name, country, id + 1);
         }
     }
 }

@@ -13,15 +13,16 @@
         }
         <a href="@Url.RouteUrl("show_all_accomodations", new { type="stars"})" class="btn btn-block btn-default">Najekskluzivnije smestajne jedinice</a>
         <a href="@Url.RouteUrl("show_all_accomodations", new { type="newest" })" class="btn btn-block btn-default">Najnovije smestajne jedinice</a>
+        <a href="@Url.RouteUrl("show_all_accomodations", new { type="all" })" class="btn btn-block btn-default">Sve smestajne jedinice</a>
 
     </div>
     <div class="col-lg-9">
-        <div class="cardsWrapper row">
+        <div class="cardsWrapper row"  id="carsWrapper">
             @{
                 foreach (var accomodation in Model)
                 {
                     <div class="card col-lg-3">
-                        <h4> @accomodation.Name, @accomodation.City </h4>
+                        <h4> @accomodation.Name </h4>
                         <h5> @accomodation.Country</h5>
                         <hr />
                         <a class="btn btn-block btn-default" href='@Url.RouteUrl("show_rooms", new { accomodationId = accomodation.Id, type = true })'>Detaljnije<i style="margin-left:5px" class="fas fa-info-circle"></i></a>

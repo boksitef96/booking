@@ -81,7 +81,7 @@ namespace Booking.Controllers
         {
             //var accomodations = _context.Accomodations.ToList();
             List<Accomodation> accomodations=null;
-            if (type=="newest")
+            if (type == "newest")
             {
                 accomodations = redisDB.GetNewest();
             }
@@ -89,6 +89,11 @@ namespace Booking.Controllers
             {
                 accomodations = redisDB.GetAboveAvergeStars();
             }
+            if (type == "all")
+            {
+                accomodations = _context.Accomodations.ToList();
+            }
+
             return View(accomodations);
         }
 

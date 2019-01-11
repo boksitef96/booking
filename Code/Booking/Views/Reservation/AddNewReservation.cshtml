@@ -8,7 +8,7 @@
 @model Booking.ControlerViewModels.ReservationDates
 
 
-<div class="hidden" id="flashDiv">Neko je upravo rezervisao ovu smestajnu jedinicu!</div>
+<div class="hidden" id="flashDiv" data-id="@Model.Reservation.Room.Id">Neko je upravo rezervisao ovu smestajnu jedinicu!</div>
 <h2 style="margin:50px; text-align:center;">Dodajte novu rezervaciju za odabranu smestajnu jedinicu</h2>
 @using (@Html.BeginForm("AddReservation", "Reservation", new { roomId = Model.Reservation.Room.Id }, FormMethod.Post, null))
 {

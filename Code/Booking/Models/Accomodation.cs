@@ -36,6 +36,8 @@ namespace Booking.Models
         public DateTime LastUpdate { get; set; }
       
         public ICollection<Room> Rooms { get; set; }
-       
+
+        public ICollection<ImageModels> Images { get; set; }
+
     }
 }

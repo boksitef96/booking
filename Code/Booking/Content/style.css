@@ -37,5 +37,14 @@
     color : white;
     padding: 5px;
     text-align: center;
+}
 
+.details {
+    border-right: 1px black solid;
+    height: 440px;
+    font-size: 20px;
+}
+
+.details div {
+    margin-bottom: 20px;
 }

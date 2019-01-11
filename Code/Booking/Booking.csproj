@@ -205,8 +205,19 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\ImageController.cs" />
+    <Compile Include="Migrations\201901110550086_Image-update-2.cs" />
+    <Compile Include="Migrations\201901110550086_Image-update-2.Designer.cs">
+      <DependentUpon>201901110550086_Image-update-2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901110947016_updates.cs" />
+    <Compile Include="Migrations\201901110947016_updates.Designer.cs">
+      <DependentUpon>201901110947016_updates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ImageModels.cs" />
     <Compile Include="ViewModels\AccomodationCities.cs" />
     <Compile Include="ViewModels\AccomodationDetails.cs" />
+    <Compile Include="ViewModels\ImageObject.cs" />
     <Compile Include="ViewModels\ReservationDates.cs" />
     <Compile Include="Controllers\AccomodationController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -386,9 +397,12 @@
     <Content Include="Views\Accomodation\ShowAllAccomodationsByUser.cshtml" />
     <Content Include="Views\Room\ShowAllRoomsForAccomodation.cshtml" />
     <Content Include="Views\Home\Chat.cshtml" />
+    <Content Include="Views\Image\AddNewImage.cshtml" />
+    <Content Include="Views\Image\ShowImages.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\images\accomodation\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -424,6 +438,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901042019109_City-Change.resx">
       <DependentUpon>201901042019109_City-Change.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901110550086_Image-update-2.resx">
+      <DependentUpon>201901110550086_Image-update-2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901110947016_updates.resx">
+      <DependentUpon>201901110947016_updates.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
